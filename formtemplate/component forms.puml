@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+
+node  "Sistema de plantillas" {
+    package "Backend" {
+        class "spring boot" {}
+    }
+    package "Frontend" {
+        class "Angular" {}
+        Angular - "spring boot"
+    }
+}
+
+node  "Sistema de cuestionario" {
+    package "Backend" {
+        class Quarkus {}
+    }
+    package "Frontend" {
+      class Angular {}
+      Angular - "spring boot"
+      Angular - Quarkus
+    }
+}
+@enduml

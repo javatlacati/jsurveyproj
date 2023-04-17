@@ -1,0 +1,8 @@
+@startuml
+'https://plantuml.com/class-diagram
+class Encuesta {
+    - int encuestaid
+    - int templateid
+    -String[] answers
+}
+@enduml

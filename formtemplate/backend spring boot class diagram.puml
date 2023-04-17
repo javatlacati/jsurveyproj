@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Pregunta {
+- int preguntaId
+ -String enunciado
+ - boolean obligatoria
+}
+class PreguntaAbierta extends Pregunta {
+ -String respuesta
+}
+
+class PreguntaMultiseleccion extends Pregunta {
+    -String[] opcionesDeRespuesta
+}
+
+class PreguntaFecha extends Pregunta {
+    Date fecha
+}
+
+
+class Seccion {
+ - int seccionId
+ - Pregunta[] preguntas
+}
+
+class PlantillaCuestionario {
+  - int templateid
+  - Secciones[] secciones
+}
+
+PlantillaCuestionario -* Seccion
+Seccion -* Pregunta
+
+@enduml
