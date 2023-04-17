@@ -29,7 +29,13 @@ class PlantillaCuestionario {
   - Secciones[] secciones
 }
 
+class Encuesta {
+  - int encuestaId
+  - PlantillaCuestionario plantilla
+}
+
 PlantillaCuestionario -* Seccion
 Seccion -* Pregunta
+Encuesta -* PlantillaCuestionario
 
 @enduml
