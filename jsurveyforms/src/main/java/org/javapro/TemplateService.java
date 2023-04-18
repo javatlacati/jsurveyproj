@@ -1,7 +1,7 @@
 package org.javapro;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import org.javapro.survey.model.Survey;
+import org.javapro.formtemplate.model.SurveyTemplate;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -21,9 +21,9 @@ import javax.ws.rs.QueryParam;
  * }
  */
 @RegisterRestClient(baseUri = "http://localhost:8080")
-public interface MyRemoteService {
+public interface TemplateService {
 
     @GET
     @Path("/template")
-    Survey getTemplateById(@QueryParam("id") String id);
+    SurveyTemplate getTemplateById(@QueryParam("id") String id);
 }
