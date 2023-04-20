@@ -1,4 +1,4 @@
-package org.javapro.formtemplate.model;
+package org.javapro.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -23,8 +23,17 @@ import javax.persistence.InheritanceType;
 @SuperBuilder
 @NoArgsConstructor
 @ToString
-//@DiscriminatorColumn(name="QUESTION_TYPE")
+//@JsonDeserialize(using = QuestionDeserializer.class)
+//@DiscriminatorColumn(name = "QUESTION_TYPE")
+//@JsonTypeInfo(
+//        use = JsonTypeInfo.Id.DEDUCTION
+//        use = JsonTypeInfo.Id.NAME
+//        ,include = JsonTypeInfo.As.PROPERTY
+//        ,property = "type"
+//        , defaultImpl = OpenQuestion.class
+//)
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include= JsonTypeInfo.As.PROPERTY, property="type", defaultImpl = OpenQuestion.class)
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = DateQuestion.class
@@ -40,7 +49,7 @@ import javax.persistence.InheritanceType;
 public abstract class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long  questionId;
- String statement;
-  boolean required;
+    Long questionId;
+    String statement;
+    boolean required;
 }

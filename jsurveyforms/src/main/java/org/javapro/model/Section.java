@@ -1,4 +1,4 @@
-package org.javapro.formtemplate.model;
+package org.javapro.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,10 +24,11 @@ import java.util.List;
 @EqualsAndHashCode
 @Setter
 @Getter
-public class SurveyTemplate   implements Serializable {
+public class Section  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long surveyTemplateId;
+    private Long sectionId;
+    private String name;
     @OneToMany
-    private List<Section> sections;
+    private List<Question> questions;
 }

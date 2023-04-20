@@ -1,4 +1,4 @@
-package org.javapro.formtemplate.model;
+package org.javapro.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package org.javapro.formtemplate.model;
+package org.javapro.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -10,21 +10,22 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
+import java.util.Date;
 
 @Entity
 @Setter
 @Getter
 @SuperBuilder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString(callSuper = true)
-//@DiscriminatorValue("MultipleOption")
-@JsonTypeName("MultipleOptionQuestion")
+//@DiscriminatorValue("Date")
+@JsonTypeName("DateQuestion")
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "type"
 )
-public class MultipleOptionQuestion extends Question {
-    String[] answerOptions;
+public class DateQuestion extends Question {
+    Date theDate;
 }

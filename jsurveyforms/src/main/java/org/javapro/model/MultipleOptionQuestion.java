@@ -1,4 +1,4 @@
-package org.javapro.formtemplate.model;
+package org.javapro.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;

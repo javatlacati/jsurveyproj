@@ -1,9 +1,8 @@
-package org.javapro.survey.model;
+package org.javapro.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.javapro.formtemplate.model.SurveyTemplate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
