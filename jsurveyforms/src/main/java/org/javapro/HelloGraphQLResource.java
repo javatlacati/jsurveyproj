@@ -4,15 +4,19 @@ import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Query;
-import org.javapro.formtemplate.model.SurveyTemplate;
-import org.javapro.survey.model.Survey;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.javapro.model.Survey;
+import org.javapro.model.SurveyTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.util.List;
 
 @GraphQLApi
 public class HelloGraphQLResource {
     @Inject
+    @RestClient
+//    @Default
     TemplateService templateService;
 
 //    @Inject
@@ -21,7 +25,7 @@ public class HelloGraphQLResource {
 //    private WebClient webClient;
 
     @PostConstruct
-    void initialize(){
+    void initialize() {
 //        this.webClient.create(vertx, new WebClientOptions().setDefaultHost("localhost").setDefaultPort(8081).setSsl(false).setTrustAll(true));
     }
 
@@ -37,7 +41,13 @@ public class HelloGraphQLResource {
         return templateService.getTemplateById(Long.toString(id));
     }
 
-    public void saveNewSurvey(Survey survey){
+    @Query
+    @Description("Retrieves all templates")
+    public List<SurveyTemplate> getTemplates() {
+        return templateService.getTemplates();
+    }
+
+    public void saveNewSurvey(Survey survey) {
 
     }
 }
