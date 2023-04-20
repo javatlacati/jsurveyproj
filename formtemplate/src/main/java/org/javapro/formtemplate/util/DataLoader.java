@@ -35,7 +35,7 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) {
 
         OpenQuestion openQuestion = questionRepository.save(OpenQuestion.builder().statement("escribe cualquier texto aqui").required(false).build());
-        DateQuestion dateQuestion = questionRepository.save(DateQuestion.builder().theDate(new Date()).build());
+        DateQuestion dateQuestion = questionRepository.save(DateQuestion.builder().statement("escribe la fecha de hoy").theDate(new Date()).build());
         final List<Question> questions = Arrays.asList(openQuestion, dateQuestion);
         Section generalInfoSection = sectionRepository.save(Section.builder().name("datos generales").questions(questions).build());
         final List<Section> sections = Collections.singletonList(generalInfoSection);
