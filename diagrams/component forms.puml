@@ -14,7 +14,9 @@ node  "Sistema de plantillas" {
 
 node  "Sistema de cuestionario" {
     package "Backend" {
-        class Quarkus {}
+        class Quarkus {
+        }
+        Quarkus -  "spring boot"
     }
     package "Frontend" {
       class Angular {}

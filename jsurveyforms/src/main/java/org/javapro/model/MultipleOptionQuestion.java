@@ -27,4 +27,5 @@ import javax.persistence.Entity;
 )
 public class MultipleOptionQuestion extends Question {
     String[] answerOptions;
+    int answerIdx;
 }
