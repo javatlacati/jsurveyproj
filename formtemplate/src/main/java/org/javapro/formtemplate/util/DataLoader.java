@@ -1,6 +1,7 @@
 package org.javapro.formtemplate.util;
 
 import org.javapro.formtemplate.model.DateQuestion;
+import org.javapro.formtemplate.model.MultipleOptionQuestion;
 import org.javapro.formtemplate.model.OpenQuestion;
 import org.javapro.formtemplate.model.Question;
 import org.javapro.formtemplate.model.Section;
@@ -34,9 +35,10 @@ public class DataLoader implements CommandLineRunner {
     @Transactional
     public void run(String... args) {
 
-        OpenQuestion openQuestion = questionRepository.save(OpenQuestion.builder().statement("escribe cualquier texto aqui").required(false).build());
-        DateQuestion dateQuestion = questionRepository.save(DateQuestion.builder().statement("escribe la fecha de hoy").theDate(new Date()).build());
-        final List<Question> questions = Arrays.asList(openQuestion, dateQuestion);
+        OpenQuestion openQuestion = questionRepository.save(OpenQuestion.builder().statement("Escribe tu nombre").required(false).build());
+        DateQuestion dateQuestion = questionRepository.save(DateQuestion.builder().statement("Escribe la fecha de hoy:").theDate(new Date()).required(true).build());
+        MultipleOptionQuestion multipleOptionQuestion = questionRepository.save(MultipleOptionQuestion.builder().statement("Especifica tu sexo:").answerOptions(new String[]{"M","F", "prefiero no decir"}).required(true).build());
+        final List<Question> questions = Arrays.asList(openQuestion, dateQuestion, multipleOptionQuestion);
         Section generalInfoSection = sectionRepository.save(Section.builder().name("datos generales").questions(questions).build());
         final List<Section> sections = Collections.singletonList(generalInfoSection);
         SurveyTemplate surveyTemplate = surveyTemplateRepository.save(SurveyTemplate.builder().sections(sections).build());
