@@ -21,17 +21,10 @@ import java.util.List;
 public class HelloGraphQLResource {
     @Inject
     @RestClient
-//    @Default
     TemplateService templateService;
-
-//    @Inject
-//    Vertx vertx;
-//
-//    private WebClient webClient;
 
     @PostConstruct
     void initialize() {
-//        this.webClient.create(vertx, new WebClientOptions().setDefaultHost("localhost").setDefaultPort(8081).setSsl(false).setTrustAll(true));
     }
 
     @Query
@@ -56,10 +49,12 @@ public class HelloGraphQLResource {
     public boolean isDateQuestion(@Source Question question) {
         return question instanceof DateQuestion;
     }
+
     @Query
     public boolean isOpenQuestion(@Source Question question) {
         return question instanceof OpenQuestion;
     }
+
     @Query
     public boolean isMultipleOptionQuestion(@Source Question question) {
         return question instanceof MultipleOptionQuestion;
@@ -67,7 +62,7 @@ public class HelloGraphQLResource {
 
     @Query
     public DateQuestion getDateQuestion(@Source Question question) {
-        if(isDateQuestion(question)){
+        if (isDateQuestion(question)) {
             return (DateQuestion) question;
         }
         return null;
@@ -75,7 +70,7 @@ public class HelloGraphQLResource {
 
     @Query
     public OpenQuestion getOpenQuestion(@Source Question question) {
-        if(isOpenQuestion(question)){
+        if (isOpenQuestion(question)) {
             return (OpenQuestion) question;
         }
         return null;
@@ -83,10 +78,23 @@ public class HelloGraphQLResource {
 
     @Query
     public MultipleOptionQuestion getMultipleOptionQuestion(@Source Question question) {
-        if(isMultipleOptionQuestion(question)){
+        if (isMultipleOptionQuestion(question)) {
             return (MultipleOptionQuestion) question;
         }
         return null;
+    }
+
+    @Query
+    public String getQuestionType(@Source Question question) {
+        if (isDateQuestion(question)) {
+            return "DateQuestion";
+        } else {
+            if (isOpenQuestion(question)) {
+                return "OpenQuestion";
+            } else {
+                return "MultipleOptionQuestion";
+            }
+        }
     }
 
     public void saveNewSurvey(Survey survey) {
