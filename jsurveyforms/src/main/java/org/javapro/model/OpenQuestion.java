@@ -1,5 +1,6 @@
 package org.javapro.model;
 
+//import io.smallrye.graphql.api.annotations.GraphQLName;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Builder;
@@ -16,6 +17,7 @@ import javax.persistence.Entity;
 @SuperBuilder
 @ToString(callSuper = true)
 //@DiscriminatorValue("Open")
+//@GraphQLName("OpenQuestion")
 @JsonTypeName("OpenQuestion")
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -29,4 +31,5 @@ public class OpenQuestion extends Question {
     public OpenQuestion() {
         super();
     }
+
 }

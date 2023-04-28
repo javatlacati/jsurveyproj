@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.eclipse.microprofile.graphql.Description;
 
 import javax.persistence.Entity;
 
@@ -26,6 +27,9 @@ import javax.persistence.Entity;
         property = "type"
 )
 public class MultipleOptionQuestion extends Question {
+    @Description("Answer options")
     String[] answerOptions;
+    @Description("zeroth-based index of the correct answer")
     int answerIdx;
+
 }

@@ -33,7 +33,6 @@ import javax.persistence.InheritanceType;
 //        , defaultImpl = OpenQuestion.class
 //)
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include= JsonTypeInfo.As.PROPERTY, property="type", defaultImpl = OpenQuestion.class)
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = DateQuestion.class
@@ -52,4 +51,5 @@ public abstract class Question {
     Long questionId;
     String statement;
     boolean required;
+
 }
