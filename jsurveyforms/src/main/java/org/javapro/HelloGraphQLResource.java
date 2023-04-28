@@ -7,6 +7,7 @@ import org.eclipse.microprofile.graphql.Query;
 import org.eclipse.microprofile.graphql.Source;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.javapro.model.DateQuestion;
+import org.javapro.model.MultipleOptionQuestion;
 import org.javapro.model.OpenQuestion;
 import org.javapro.model.Question;
 import org.javapro.model.Survey;
@@ -59,6 +60,10 @@ public class HelloGraphQLResource {
     public boolean isOpenQuestion(@Source Question question) {
         return question instanceof OpenQuestion;
     }
+    @Query
+    public boolean isMultipleOptionQuestion(@Source Question question) {
+        return question instanceof MultipleOptionQuestion;
+    }
 
     @Query
     public DateQuestion getDateQuestion(@Source Question question) {
@@ -72,6 +77,14 @@ public class HelloGraphQLResource {
     public OpenQuestion getOpenQuestion(@Source Question question) {
         if(isOpenQuestion(question)){
             return (OpenQuestion) question;
+        }
+        return null;
+    }
+
+    @Query
+    public MultipleOptionQuestion getMultipleOptionQuestion(@Source Question question) {
+        if(isMultipleOptionQuestion(question)){
+            return (MultipleOptionQuestion) question;
         }
         return null;
     }
