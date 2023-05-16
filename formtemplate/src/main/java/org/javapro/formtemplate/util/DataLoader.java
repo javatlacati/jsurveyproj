@@ -37,12 +37,16 @@ public class DataLoader implements CommandLineRunner {
 
         OpenQuestion openQuestion = questionRepository.save(OpenQuestion.builder().statement("Escribe tu nombre").required(false).build());
         DateQuestion dateQuestion = questionRepository.save(DateQuestion.builder().statement("Escribe la fecha de hoy:").theDate(new Date()).required(true).build());
-        MultipleOptionQuestion multipleOptionQuestion = questionRepository.save(MultipleOptionQuestion.builder().statement("Especifica tu sexo:").answerOptions(new String[]{"M","F", "prefiero no decir"}).required(true).build());
-        final List<Question> questions = Arrays.asList(openQuestion, dateQuestion, multipleOptionQuestion);
-        Section generalInfoSection = sectionRepository.save(Section.builder().name("datos generales").questions(questions).build());
-        final List<Section> sections = Collections.singletonList(generalInfoSection);
-        SurveyTemplate surveyTemplate = surveyTemplateRepository.save(SurveyTemplate.builder().sections(sections).build());
-        System.out.println("loaded template:"+surveyTemplate);
+        MultipleOptionQuestion multipleOptionQuestion = questionRepository.save(MultipleOptionQuestion.builder().statement("Especifica tu sexo:").answerOptions(new String[]{"M", "F", "prefiero no decir"}).required(true).build());
+        final List<Question> generalQuestions = Arrays.asList(openQuestion, dateQuestion, multipleOptionQuestion);
+        Section generalInfoSection = sectionRepository.save(Section.builder().name("datos generales").questions(generalQuestions).build());
+
+        MultipleOptionQuestion afiliationOptionQuestion = questionRepository.save(MultipleOptionQuestion.builder().statement("Especifica tu afiliacion politica:").answerOptions(new String[]{"PRI", "PAN", "PRD", "MORENA", "prefiero no decir"}).required(false).build());
+        final List<Question> afiliationQuestions = List.of(afiliationOptionQuestion);
+        Section afiliationInfoSection = sectionRepository.save(Section.builder().name("Afiliacion").questions(afiliationQuestions).build());
+        final List<Section> sections = Arrays.asList(generalInfoSection, afiliationInfoSection);
+        SurveyTemplate surveyTemplate1 = surveyTemplateRepository.save(SurveyTemplate.builder().sections(sections).build());
+        System.out.println("loaded template:" + surveyTemplate1);
     }
 
 }
