@@ -20,4 +20,8 @@ public class SurveyTemplateService {
     public Optional<SurveyTemplate> findById(Long aLong) {
         return surveyTemplateRepository.findById(aLong);
     }
+
+    public void deleteTemplateById(Long aLong) {
+        surveyTemplateRepository.deleteById(aLong);
+    }
 }
