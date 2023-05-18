@@ -24,4 +24,8 @@ public class SurveyTemplateService {
     public void deleteTemplateById(Long aLong) {
         surveyTemplateRepository.deleteById(aLong);
     }
+
+    public <S extends SurveyTemplate> S save(S entity) {
+        return surveyTemplateRepository.save(entity);
+    }
 }
