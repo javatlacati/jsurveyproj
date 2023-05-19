@@ -5,6 +5,7 @@ import org.javapro.formtemplate.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,5 +39,15 @@ public class QuestionController {
     @ResponseBody
     public Question createQuestion(@RequestBody Question question) {
         return questionService.save(question);
+    }
+
+    @PatchMapping("/question/{questionId}")
+    public Optional<Question> updateQuestion(@PathVariable Long questionId, Question question) {
+        Optional<Question> possibleQuestion = questionService.findById(questionId);
+        if (possibleQuestion.isPresent()) {
+            return Optional.of(questionService.save(question)); //TODO prevent deletion
+        } else {
+            return Optional.of(createQuestion(question));
+        }
     }
 }

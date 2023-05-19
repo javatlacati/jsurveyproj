@@ -1,10 +1,12 @@
 package org.javapro.formtemplate.controller;
 
+import org.javapro.formtemplate.model.Question;
 import org.javapro.formtemplate.model.Section;
 import org.javapro.formtemplate.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +20,11 @@ import java.util.Optional;
 public class SectionController {
     private final SectionRepository sectionRepository;
 
-    public SectionController(@Autowired SectionRepository sectionRepository) {
+    private final QuestionController questionController;
+
+    public SectionController(@Autowired SectionRepository sectionRepository, @Autowired QuestionController questionController) {
         this.sectionRepository = sectionRepository;
+        this.questionController = questionController;
     }
 
     @GetMapping("/sections")
@@ -41,5 +46,35 @@ public class SectionController {
     @ResponseBody
     public Section createSection(@RequestBody Section section) {
         return sectionRepository.save(section);
+    }
+
+    @PatchMapping("/section/{sectionId}")
+    public Optional<Section> update(@PathVariable Long sectionId, Section section) {
+        Optional<Section> possibleSection = sectionRepository.findById(sectionId);
+        if (possibleSection.isPresent()) {
+            section.getName();
+            updateQuestions(section);
+            return Optional.ofNullable(sectionRepository.save(section));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    private void updateQuestions(Section section) {
+        List<Question> questions = section.getQuestions();
+        if (!questions.isEmpty()) {
+            int questionSize = questions.size();
+            for (int questionIndex = 0; questionIndex < questionSize; questionIndex++) {
+                Question question = questions.get(questionIndex);
+                Optional<Long> questionId = Optional.ofNullable(question.getQuestionId());
+                if (questionId.isPresent()) {
+                    int finalQuestionIndex = questionIndex;
+                    questionController.updateQuestion(questionId.get(), question)
+                            .ifPresent(question1 -> questions.set(finalQuestionIndex, question1));
+                } else {
+                    questions.set(questionIndex, questionController.createQuestion(question));
+                }
+            }
+        }
     }
 }
