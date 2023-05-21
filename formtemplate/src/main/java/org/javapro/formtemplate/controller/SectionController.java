@@ -52,15 +52,15 @@ public class SectionController {
     public Optional<Section> update(@PathVariable Long sectionId, Section section) {
         Optional<Section> possibleSection = sectionRepository.findById(sectionId);
         if (possibleSection.isPresent()) {
-            section.getName();
-            updateQuestions(section);
-            return Optional.ofNullable(sectionRepository.save(section));
+            Section existingSection = possibleSection.get();
+            updateQuestions(existingSection, section);
+            return Optional.of(sectionRepository.save(existingSection));
         } else {
             return Optional.empty();
         }
     }
 
-    private void updateQuestions(Section section) {
+    private void updateQuestions(Section existingSection, Section section) {
         List<Question> questions = section.getQuestions();
         if (!questions.isEmpty()) {
             int questionSize = questions.size();
@@ -76,5 +76,6 @@ public class SectionController {
                 }
             }
         }
+        existingSection.setQuestions(questions);
     }
 }

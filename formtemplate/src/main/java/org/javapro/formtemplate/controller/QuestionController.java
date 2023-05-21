@@ -45,9 +45,15 @@ public class QuestionController {
     public Optional<Question> updateQuestion(@PathVariable Long questionId, Question question) {
         Optional<Question> possibleQuestion = questionService.findById(questionId);
         if (possibleQuestion.isPresent()) {
-            return Optional.of(questionService.save(question)); //TODO prevent deletion
+            Question existingQuestion = possibleQuestion.get();
+            updateQuestionFields(existingQuestion,question);
+            return Optional.of(questionService.save(existingQuestion));
         } else {
             return Optional.of(createQuestion(question));
         }
+    }
+
+    private void updateQuestionFields(Question existingQuestion, Question question) {
+        //TODO use strategy design pattern
     }
 }

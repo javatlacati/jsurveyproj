@@ -49,8 +49,8 @@ public class SurveyTemplateController {
     @PostMapping("/template")
     @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
-    public SurveyTemplate createTemplate(@RequestBody SurveyTemplate surveyTemplate) {
-        return surveyTemplateService.save(surveyTemplate);
+    public SurveyTemplate createTemplate() {
+        return surveyTemplateService.save(new SurveyTemplate());
     }
 
     /**
@@ -67,11 +67,12 @@ public class SurveyTemplateController {
     @ResponseBody
     public Optional<SurveyTemplate> update(@PathVariable Long id, @RequestBody SurveyTemplate surveyTemplate) {
         // Retrieve the existing survey template by its ID
-        Optional<SurveyTemplate> template = surveyTemplateService.findById(id);
-        if (template.isPresent()) {
-            updateSections(surveyTemplate);
+        Optional<SurveyTemplate> possibleTemplate = surveyTemplateService.findById(id);
+        if (possibleTemplate.isPresent()) {
+            SurveyTemplate existingTemplate = possibleTemplate.get();
+            updateSections(existingTemplate, surveyTemplate);
             // Save and return the updated survey template
-            return Optional.of(surveyTemplateService.save(surveyTemplate));
+            return Optional.of(surveyTemplateService.save(existingTemplate));
         } else {
             // Return empty optional if the survey template does not exist
             return Optional.empty();
@@ -85,7 +86,7 @@ public class SurveyTemplateController {
      *
      * @param surveyTemplate the survey template to update the sections for
      */
-    private void updateSections(SurveyTemplate surveyTemplate) {
+    private void updateSections(SurveyTemplate existingTemplate, SurveyTemplate surveyTemplate) {
         List<Section> sections = surveyTemplate.getSections();
         if (!sections.isEmpty()) {
             int sectionsSize = sections.size();
@@ -103,7 +104,7 @@ public class SurveyTemplateController {
                 }
             }
             // Set the updated sections list in the survey template
-            surveyTemplate.setSections(sections);
+            existingTemplate.setSections(sections);
         }
     }
 }
