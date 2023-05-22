@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class SurveyTemplateController {
     @Autowired
     private SurveyTemplateService surveyTemplateService;
@@ -26,28 +27,24 @@ public class SurveyTemplateController {
     private SectionController sectionController;
 
     @GetMapping("/templates")
-    @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
     public List<SurveyTemplate> findAll() {
         return surveyTemplateService.findAll();
     }
 
     @GetMapping("/template/{id}")
-    @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
     public Optional<SurveyTemplate> findById(@PathVariable Long id) {
         return surveyTemplateService.findById(id);
     }
 
     @DeleteMapping("/template/{id}")
-    @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
     public void deleteById(@PathVariable Long id) {
         surveyTemplateService.deleteTemplateById(id);
     }
 
     @PostMapping("/template")
-    @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
     public SurveyTemplate createTemplate() {
         return surveyTemplateService.save(new SurveyTemplate());
@@ -63,7 +60,6 @@ public class SurveyTemplateController {
      * @return an optional containing the updated survey template if it exists, or an empty optional otherwise
      */
     @PatchMapping("/template/{id}")
-    @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
     public Optional<SurveyTemplate> update(@PathVariable Long id, @RequestBody SurveyTemplate surveyTemplate) {
         // Retrieve the existing survey template by its ID
