@@ -1,0 +1,34 @@
+@startuml
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class MultipleOptionQuestion {
+  ~ answerOptions: String[]
+}
+class Question {
+  ~ statement: String
+  ~ questionId: Long
+  ~ required: boolean
+  ~ type: QuestionType
+}
+enum QuestionType << enumeration >> {
+  + DATE:
+  + MULTIPLE_OPTION:
+  + OPEN:
+}
+class Section {
+  - sectionId: Long
+  - name: String
+  - questions: List<Question>
+}
+class SurveyTemplate {
+  - sections: List<Section>
+  - surveyTemplateId: Long
+}
+
+MultipleOptionQuestion  -[#000082,plain]-^  Question
+Question               "1" *-[#595959,plain]-> "type\n1" QuestionType
+Section                "1" *-[#595959,plain]-> "questions\n*" Question
+SurveyTemplate         "1" *-[#595959,plain]-> "sections\n*" Section
+@enduml

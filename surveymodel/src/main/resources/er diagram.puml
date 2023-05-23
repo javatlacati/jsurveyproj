@@ -1,0 +1,40 @@
+@startuml
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+entity MultipleOptionQuestion {
+  + questionId: Long
+  --
+  + statement: String
+  + required: boolean
+  + type: QuestionType
+}
+
+entity QuestionType {
+  + type: String
+}
+
+entity Question {
+  + questionId: Long
+  --
+  + statement: String
+  + required: boolean
+  + typeId: String
+}
+
+entity Section {
+  + sectionId: Long
+  --
+  + name: String
+}
+
+entity SurveyTemplate {
+  + surveyTemplateId: Long
+}
+
+MultipleOptionQuestion ||--|| Question
+Question }o--|| QuestionType
+Section }o--|| Question
+SurveyTemplate }o--|| Section
+@enduml

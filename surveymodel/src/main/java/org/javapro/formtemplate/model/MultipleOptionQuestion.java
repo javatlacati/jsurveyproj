@@ -27,5 +27,4 @@ import lombok.experimental.SuperBuilder;
 )
 public class MultipleOptionQuestion extends Question {
     String[] answerOptions;
-    int answerIdx;
 }
