@@ -6,11 +6,9 @@ import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Query;
 import org.eclipse.microprofile.graphql.Source;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-import org.javapro.model.DateQuestion;
+import org.javapro.entities.Survey;
 import org.javapro.model.MultipleOptionQuestion;
-import org.javapro.model.OpenQuestion;
 import org.javapro.model.Question;
-import org.javapro.model.Survey;
 import org.javapro.model.SurveyTemplate;
 
 import javax.annotation.PostConstruct;
@@ -46,34 +44,8 @@ public class HelloGraphQLResource {
     }
 
     @Query
-    public boolean isDateQuestion(@Source Question question) {
-        return question instanceof DateQuestion;
-    }
-
-    @Query
-    public boolean isOpenQuestion(@Source Question question) {
-        return question instanceof OpenQuestion;
-    }
-
-    @Query
     public boolean isMultipleOptionQuestion(@Source Question question) {
         return question instanceof MultipleOptionQuestion;
-    }
-
-    @Query
-    public DateQuestion getDateQuestion(@Source Question question) {
-        if (isDateQuestion(question)) {
-            return (DateQuestion) question;
-        }
-        return null;
-    }
-
-    @Query
-    public OpenQuestion getOpenQuestion(@Source Question question) {
-        if (isOpenQuestion(question)) {
-            return (OpenQuestion) question;
-        }
-        return null;
     }
 
     @Query
@@ -84,18 +56,6 @@ public class HelloGraphQLResource {
         return null;
     }
 
-    @Query
-    public String getQuestionType(@Source Question question) {
-        if (isDateQuestion(question)) {
-            return "DateQuestion";
-        } else {
-            if (isOpenQuestion(question)) {
-                return "OpenQuestion";
-            } else {
-                return "MultipleOptionQuestion";
-            }
-        }
-    }
 
     public void saveNewSurvey(Survey survey) {
 

@@ -12,7 +12,7 @@ import org.eclipse.microprofile.graphql.Description;
 
 import javax.persistence.Entity;
 
-@Entity
+//@Entity
 @Setter
 @Getter
 @SuperBuilder
