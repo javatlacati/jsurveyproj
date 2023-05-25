@@ -1,6 +1,5 @@
 package org.javapro.formtemplate.controller;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.javapro.formtemplate.model.Section;
 import org.javapro.formtemplate.model.SurveyTemplate;
 import org.javapro.formtemplate.service.SurveyTemplateService;
@@ -11,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,8 +47,8 @@ public class SurveyTemplateController {
 
     @PostMapping("/template")
     @ResponseBody
-    public SurveyTemplate createTemplate() {
-        return surveyTemplateService.save(new SurveyTemplate());
+    public SurveyTemplate createTemplate(@RequestBody SurveyTemplate surveyTemplate) {
+        return surveyTemplateService.save(surveyTemplate);
     }
 
     /**
@@ -84,7 +85,7 @@ public class SurveyTemplateController {
      */
     private void updateSections(SurveyTemplate existingTemplate, SurveyTemplate surveyTemplate) {
         List<Section> sections = surveyTemplate.getSections();
-        if (!sections.isEmpty()) {
+        if (sections != null && !sections.isEmpty()) {
             int sectionsSize = sections.size();
             for (int sectionIndex = 0; sectionIndex < sectionsSize; sectionIndex++) {
                 Section section = sections.get(sectionIndex);
@@ -101,6 +102,8 @@ public class SurveyTemplateController {
             }
             // Set the updated sections list in the survey template
             existingTemplate.setSections(sections);
+        } else {
+            existingTemplate.setSections(new ArrayList<>());
         }
     }
 }
