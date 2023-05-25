@@ -63,6 +63,9 @@ public class SectionController {
     }
 
     private void updateQuestions(Section existingSection, Section section) {
+        if (section.getName() != null) {
+            existingSection.setName(section.getName());
+        }
         List<Question> questions = section.getQuestions();
         if (!questions.isEmpty()) {
             int questionSize = questions.size();
