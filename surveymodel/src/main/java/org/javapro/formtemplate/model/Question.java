@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,8 +41,10 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long questionId;
+    @NotNull(message = "la pregunta no puede ir sin enunciado")
     String statement;
     boolean required;
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "la pregunta no puede ir sin su tipo")
     QuestionType type;
 }
