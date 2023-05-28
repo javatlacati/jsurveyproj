@@ -23,20 +23,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @ToString
-//@DiscriminatorColumn(name="QUESTION_TYPE")
-//@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", defaultImpl = OpenQuestion.class)
-//@JsonIgnoreProperties(ignoreUnknown = true)
-//@JsonSubTypes({
-//        @JsonSubTypes.Type(value = DateQuestion.class
-//                , name = "DateQuestion"
-//        ),
-//        @JsonSubTypes.Type(value = MultipleOptionQuestion.class
-//                , name = "MultipleOptionQuestion"
-//        ),
-//        @JsonSubTypes.Type(value = OpenQuestion.class
-//                , name = "OpenQuestion"
-//        )
-//})
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
