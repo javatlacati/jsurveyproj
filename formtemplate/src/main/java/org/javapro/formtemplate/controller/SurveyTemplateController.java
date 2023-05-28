@@ -66,6 +66,7 @@ public class SurveyTemplateController {
         // Retrieve the existing survey template by its ID
         Optional<SurveyTemplate> possibleTemplate = surveyTemplateService.findById(id);
         if (possibleTemplate.isPresent()) {
+            System.out.println("Template is present, trying to update with template:" + surveyTemplate);
             SurveyTemplate existingTemplate = possibleTemplate.get();
             updateSections(existingTemplate, surveyTemplate);
             // Save and return the updated survey template
