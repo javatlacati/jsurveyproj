@@ -95,7 +95,7 @@ class QuestionControllerTest {
     @Test
     void createMultipleOptionQuestion() throws Exception {
         ResultActions action = mockMvc.perform(
-                MockMvcRequestBuilders.post("/question")
+                MockMvcRequestBuilders.post("/multiple-option-question")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
@@ -169,41 +169,41 @@ class QuestionControllerTest {
         System.out.println("question: " + action1.andReturn().getResponse().getContentAsString());
     }
 
-//    @Test
-//    void updateMultipleOptionQuestion() throws Exception {
-//        ResultActions action = mockMvc.perform(
-//                MockMvcRequestBuilders.post("/question")
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content("{\n" +
-//                                "  \"questionId\": null,\n" +
-//                                "  \"statement\": \"SEXO\",\n" +
-//                                "  \"required\": true,\n" +
-//                                "  \"type\": \"MULTIPLE_OPTION\",\n" +
-//                                "  \"answerOptions\": [\n" +
-//                                "    \"M\",\n" +
-//                                "    \"F\"\n" +
-//                                "  ]\n" +
-//                                "}")
-//        ).andExpect(status().isOk());
-//        System.out.println("question: " + action.andReturn().getResponse().getContentAsString());
-//        ResultActions action1 = mockMvc.perform(
-//                MockMvcRequestBuilders.patch("/question/5")
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content("{\n" +
-//                                "  \"questionId\": 5,\n" +
-//                                "  \"statement\": \"SEXOS\",\n" +
-//                                "  \"required\": true,\n" +
-//                                "  \"type\": \"MULTIPLE_OPTION\",\n" +
-//                                "  \"answerOptions\": [\n" +
-//                                "    \"M\",\n" +
-//                                "    \"F\",\n" +
-//                                "    \"Otro\"\n" +
-//                                "  ]\n" +
-//                                "}")
-//        ).andExpect(status().isOk());
-//        System.out.println("question: " + action1.andReturn().getResponse().getContentAsString());
-//    }
+    @Test
+    void updateMultipleOptionQuestion() throws Exception {
+        ResultActions action = mockMvc.perform(
+                MockMvcRequestBuilders.post("/multiple-option-question")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                "  \"questionId\": null,\n" +
+                                "  \"statement\": \"SEXO\",\n" +
+                                "  \"required\": true,\n" +
+                                "  \"type\": \"MULTIPLE_OPTION\",\n" +
+                                "  \"answerOptions\": [\n" +
+                                "    \"M\",\n" +
+                                "    \"F\"\n" +
+                                "  ]\n" +
+                                "}")
+        ).andExpect(status().isOk());
+        System.out.println("question: " + action.andReturn().getResponse().getContentAsString());
+        ResultActions action1 = mockMvc.perform(
+                MockMvcRequestBuilders.patch("/multiple-option-question/5")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                "  \"questionId\": 5,\n" +
+                                "  \"statement\": \"SEXOS\",\n" +
+                                "  \"required\": true,\n" +
+                                "  \"type\": \"MULTIPLE_OPTION\",\n" +
+                                "  \"answerOptions\": [\n" +
+                                "    \"M\",\n" +
+                                "    \"F\",\n" +
+                                "    \"Otro\"\n" +
+                                "  ]\n" +
+                                "}")
+        ).andExpect(status().isOk());
+        System.out.println("question: " + action1.andReturn().getResponse().getContentAsString());
+    }
 
 }

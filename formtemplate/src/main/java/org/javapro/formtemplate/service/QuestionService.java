@@ -1,6 +1,8 @@
-package org.javapro.formtemplate;
+package org.javapro.formtemplate.service;
 
+import org.javapro.formtemplate.model.MultipleOptionQuestion;
 import org.javapro.formtemplate.model.Question;
+import org.javapro.formtemplate.repository.MultipleOptionQuestionRepository;
 import org.javapro.formtemplate.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -18,6 +20,8 @@ import java.util.function.Function;
 public class QuestionService {
     @Autowired
     QuestionRepository questionRepository;
+    @Autowired
+    MultipleOptionQuestionRepository multipleOptionQuestionRepository;
 
     public void flush() {
         questionRepository.flush();
@@ -82,11 +86,18 @@ public class QuestionService {
         return questionRepository.findAllById(longs);
     }
 
-    public <S extends Question> S save(S entity) {
-        return questionRepository.save(entity);
+    public <T extends Question> T save(T entity) {
+        if (entity instanceof MultipleOptionQuestion) {
+            MultipleOptionQuestion multipleOptionQuestion = (MultipleOptionQuestion) entity;
+            System.out.println("saving multiple option question:" + multipleOptionQuestion);
+            return (T) multipleOptionQuestionRepository.save(multipleOptionQuestion);
+        } else {
+            System.out.println("saving regular question");
+            return questionRepository.save(entity);
+        }
     }
 
-    public Optional<Question> findById(Long aLong) {
+    public Optional<? extends Question> findById(Long aLong) {
         return questionRepository.findById(aLong);
     }
 

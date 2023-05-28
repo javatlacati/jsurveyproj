@@ -1,9 +1,10 @@
 package org.javapro.formtemplate.controller;
 
-import org.javapro.formtemplate.QuestionService;
 import org.javapro.formtemplate.controller.strategy.QuestionUpdateStrategyFactory;
+import org.javapro.formtemplate.model.MultipleOptionQuestion;
 import org.javapro.formtemplate.model.Question;
 import org.javapro.formtemplate.model.QuestionType;
+import org.javapro.formtemplate.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +29,7 @@ public class QuestionController {
     private QuestionUpdateStrategyFactory questionUpdateStrategyFactory;
 
     @GetMapping("/questions")
-    public List<Question> findAll() {
+    public List<? extends Question> findAll() {
         return questionService.findAll();
     }
 
@@ -38,7 +39,7 @@ public class QuestionController {
     }
 
     @GetMapping("/question/{questionId}")
-    public Optional<Question> findById(@PathVariable Long questionId) {
+    public Optional<? extends Question> findById(@PathVariable Long questionId) {
         return questionService.findById(questionId);
     }
 
@@ -49,9 +50,17 @@ public class QuestionController {
         return questionService.save(question);
     }
 
+    @PostMapping("/multiple-option-question")
+    @ResponseBody
+    public MultipleOptionQuestion createQuestion(@RequestBody MultipleOptionQuestion question) {
+        System.out.println("Saving question:" + question);
+        return questionService.save(question);
+    }
+
     @PatchMapping("/question/{questionId}")
-    public Optional<Question> updateQuestion(@PathVariable Long questionId, @RequestBody Question question) {
-        Optional<Question> possibleQuestion = questionService.findById(questionId);
+    public Optional<? extends Question> updateQuestion(@PathVariable Long questionId, @RequestBody Question question) {
+        System.out.println("updating question:" + question);
+        Optional<? extends Question> possibleQuestion = questionService.findById(questionId);
         if (possibleQuestion.isPresent()) {
             Question existingQuestion = possibleQuestion.get();
             return Optional.ofNullable(updateQuestionFields(existingQuestion, question));
@@ -60,9 +69,21 @@ public class QuestionController {
         }
     }
 
-    private Question updateQuestionFields(Question existingQuestion, Question question) {
+    @PatchMapping("/multiple-option-question/{questionId}")
+    public Optional<MultipleOptionQuestion> updateQuestion(@PathVariable Long questionId, @RequestBody MultipleOptionQuestion question) {
+        System.out.println("updating question:" + question);
+        Optional<MultipleOptionQuestion> possibleQuestion = (Optional<MultipleOptionQuestion>) questionService.findById(questionId);
+        if (possibleQuestion.isPresent()) {
+            MultipleOptionQuestion existingQuestion = possibleQuestion.get();
+            return Optional.ofNullable(updateQuestionFields(existingQuestion, question));
+        } else {
+            return Optional.of(createQuestion(question));
+        }
+    }
+
+    private <T extends Question> T updateQuestionFields(T existingQuestion, T question) {
         System.out.println("updating question:" + existingQuestion + "\nwith question:" + question);
         QuestionType existingQuestionType = existingQuestion.getType();
-        return questionUpdateStrategyFactory.findByType(existingQuestionType).updateQuestionFields(existingQuestion, question);
+        return (T) questionUpdateStrategyFactory.findByType(existingQuestionType).updateQuestionFields(existingQuestion, question);
     }
 }
