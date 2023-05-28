@@ -47,6 +47,20 @@ public class SectionController {
     @PostMapping("/section")
     @ResponseBody
     public Section createSection(@RequestBody Section section) {
+        System.out.println("creating section:" + section);
+        List<Question> questions = section.getQuestions();
+        if (questions != null && !questions.isEmpty()) {
+            for (int i = 0; i < questions.size(); i++) {
+                Question question = questions.get(i);
+                if (question.getQuestionId() == null) {
+                    System.out.println("Trying to save question:" + question);
+                    Question savedQuestion = questionController.createQuestion(question);
+                    if (savedQuestion != null) {
+                        questions.set(i, savedQuestion);
+                    }
+                }
+            }
+        }
         return sectionRepository.save(section);
     }
 
@@ -63,11 +77,12 @@ public class SectionController {
     }
 
     private void updateQuestions(Section existingSection, Section section) {
+        System.out.println("updating section:" + existingSection + "\nwith section:" + section);
         if (section.getName() != null) {
             existingSection.setName(section.getName());
         }
         List<Question> questions = section.getQuestions();
-        if (!questions.isEmpty()) {
+        if (questions != null && !questions.isEmpty()) {
             int questionSize = questions.size();
             for (int questionIndex = 0; questionIndex < questionSize; questionIndex++) {
                 Question question = questions.get(questionIndex);
@@ -77,6 +92,7 @@ public class SectionController {
                     questionController.updateQuestion(questionId.get(), question)
                             .ifPresent(question1 -> questions.set(finalQuestionIndex, question1));
                 } else {
+                    System.out.println("No questionID found proceding to save " + question);
                     questions.set(questionIndex, questionController.createQuestion(question));
                 }
             }
