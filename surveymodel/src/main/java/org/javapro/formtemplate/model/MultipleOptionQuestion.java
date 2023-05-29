@@ -17,11 +17,11 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "type",
-        defaultImpl = MultipleOptionQuestion.class)
+//@JsonTypeInfo(
+//        use = JsonTypeInfo.Id.NAME,
+//        include = JsonTypeInfo.As.PROPERTY,
+//        property = "type",
+//        defaultImpl = MultipleOptionQuestion.class)
 public class MultipleOptionQuestion extends Question {
     String[] answerOptions;
 }
