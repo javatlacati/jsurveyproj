@@ -53,7 +53,8 @@ public class QuestionController {
     @PostMapping("/multiple-option-question")
     @ResponseBody
     public MultipleOptionQuestion createQuestion(@RequestBody MultipleOptionQuestion question) {
-        System.out.println("Saving question:" + question);
+        System.out.println("Saving multiple option question:" + question);
+        question.setType(QuestionType.MULTIPLE_OPTION);
         return questionService.save(question);
     }
 

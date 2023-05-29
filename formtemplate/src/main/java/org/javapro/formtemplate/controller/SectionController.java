@@ -65,7 +65,7 @@ public class SectionController {
     }
 
     @PatchMapping("/section/{sectionId}")
-    public Optional<Section> update(@PathVariable Long sectionId, Section section) {
+    public Optional<Section> update(@PathVariable Long sectionId, @RequestBody Section section) {
         Optional<Section> possibleSection = sectionRepository.findById(sectionId);
         if (possibleSection.isPresent()) {
             Section existingSection = possibleSection.get();

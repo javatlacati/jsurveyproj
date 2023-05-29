@@ -2,6 +2,7 @@ package org.javapro.formtemplate.service;
 
 import org.javapro.formtemplate.model.MultipleOptionQuestion;
 import org.javapro.formtemplate.model.Question;
+import org.javapro.formtemplate.model.QuestionType;
 import org.javapro.formtemplate.repository.MultipleOptionQuestionRepository;
 import org.javapro.formtemplate.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,7 @@ public class QuestionService {
     public <T extends Question> T save(T entity) {
         if (entity instanceof MultipleOptionQuestion) {
             MultipleOptionQuestion multipleOptionQuestion = (MultipleOptionQuestion) entity;
+            entity.setType(QuestionType.MULTIPLE_OPTION);
             System.out.println("saving multiple option question:" + multipleOptionQuestion);
             return (T) multipleOptionQuestionRepository.save(multipleOptionQuestion);
         } else {

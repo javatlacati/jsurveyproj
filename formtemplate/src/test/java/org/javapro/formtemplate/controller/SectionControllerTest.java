@@ -108,6 +108,85 @@ class SectionControllerTest {
     }
 
     @Test
-    void update() {
+    void createSectionWithMultipleOptionQuestion() throws Exception {
+        ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post("/section")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                "  \"sectionId\": null,\n" +
+                                "  \"name\": \"datos generales\",\n" +
+                                "  \"questions\": [\n" +
+                                "    {\n" +
+                                "      \"questionId\": null,\n" +
+                                "      \"statement\": \"SEXO\",\n" +
+                                "      \"required\": true,\n" +
+                                "      \"type\": \"MULTIPLE_OPTION\",\n" +
+                                "      \"answerOptions\": [\n" +
+                                "        \"M\",\n" +
+                                "        \"F\"\n" +
+                                "    " +
+                                "  ]\n" +
+                                "    }\n" +
+                                "  ]\n" +
+                                "}")
+                )
+                .andExpect(status().isOk());
+        System.out.println("section: " + action.andReturn().getResponse().getContentAsString());
+    }
+
+    @Test
+    void update() throws Exception {
+        ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post("/section")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                "  \"sectionId\": null,\n" +
+                                "  \"name\": \"datos generales\",\n" +
+                                "  \"questions\": [\n" +
+                                "    {\n" +
+                                "      \"questionId\": null,\n" +
+                                "      \"statement\": \"SEXO\",\n" +
+                                "      \"required\": true,\n" +
+                                "      \"type\": \"MULTIPLE_OPTION\",\n" +
+                                "      \"answerOptions\": [\n" +
+                                "        \"M\",\n" +
+                                "        \"F\"\n" +
+                                "    " +
+                                "  ]\n" +
+                                "    }\n" +
+                                "  ]\n" +
+                                "}")
+                )
+                .andExpect(status().isOk());
+        System.out.println("section: " + action.andReturn().getResponse().getContentAsString());
+        ResultActions action1 = mockMvc.perform(MockMvcRequestBuilders.patch("/section/3")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                "  \"sectionId\": 3,\n" +
+                                "  \"name\": \"datos generales\",\n" +
+                                "  \"questions\": [\n" +
+                                "    {\n" +
+                                "      \"questionId\": null,\n" +
+                                "      \"statement\": \"SEXO\",\n" +
+                                "      \"required\": true,\n" +
+                                "      \"type\": \"MULTIPLE_OPTION\",\n" +
+                                "      \"answerOptions\": [\n" +
+                                "        \"M\",\n" +
+                                "        \"F\",\n" +
+                                "        \"Otro\"\n" +
+                                "    " +
+                                "  ]\n" +
+                                "    }\n" +
+                                "  ]\n" +
+                                "}")
+                )
+                .andExpect(status().isOk());
+        System.out.println("section: " + action1.andReturn().getResponse().getContentAsString());
+        ResultActions action2 = mockMvc.perform(MockMvcRequestBuilders.get("/section/3")
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk());
+        System.out.println("section: " + action2.andReturn().getResponse().getContentAsString());
     }
 }
