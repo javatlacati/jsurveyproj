@@ -48,6 +48,20 @@ public class SurveyTemplateController {
     @PostMapping("/template")
     @ResponseBody
     public SurveyTemplate createTemplate(@RequestBody SurveyTemplate surveyTemplate) {
+        System.out.println("creating template:" + surveyTemplate);
+        List<Section> sections = surveyTemplate.getSections();
+        if (sections != null && !sections.isEmpty()) {
+            for (int i = 0; i < sections.size(); i++) {
+                Section section = sections.get(i);
+                if (section.getSectionId() == null) {
+                    System.out.println("Trying to save question:" + section);
+                    Section savedQuestion = sectionController.createSection(section);
+                    if (savedQuestion != null) {
+                        sections.set(i, savedQuestion);
+                    }
+                }
+            }
+        }
         return surveyTemplateService.save(surveyTemplate);
     }
 
