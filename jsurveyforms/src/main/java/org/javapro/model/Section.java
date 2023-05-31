@@ -23,5 +23,5 @@ public class Section  implements Serializable {
     private Long sectionId;
     @Description("The section name")
     private String name;
-    private List<Question> questions;
+    private List<ATypeOfQuestion> questions;
 }

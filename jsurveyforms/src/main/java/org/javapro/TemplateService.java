@@ -5,6 +5,7 @@ import org.javapro.model.SurveyTemplate;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import java.util.List;
 
@@ -26,9 +27,9 @@ import java.util.List;
 //@Default
 public interface TemplateService {
 
-    @Path("/template")
+    @Path("/template/uuid/{uuid}")
     @GET
-    SurveyTemplate getTemplateById(@QueryParam("id") String id);
+    SurveyTemplate getTemplateByUUid(@PathParam("uuid") String uuid);
 
     @Path("/templates")
     @GET

@@ -12,24 +12,13 @@ import org.eclipse.microprofile.graphql.Description;
 
 import javax.persistence.Entity;
 
-//@Entity
 @Setter
 @Getter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-//@DiscriminatorValue("MultipleOption")
-@JsonTypeName("MultipleOptionQuestion")
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.EXISTING_PROPERTY,
-        property = "type"
-)
-public class MultipleOptionQuestion extends Question {
+public class MultipleOptionQuestion extends Question implements ATypeOfQuestion {
     @Description("Answer options")
     String[] answerOptions;
-    @Description("zeroth-based index of the correct answer")
-    int answerIdx;
-
 }

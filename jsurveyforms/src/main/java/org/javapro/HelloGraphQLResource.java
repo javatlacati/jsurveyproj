@@ -33,8 +33,8 @@ public class HelloGraphQLResource {
 
     @Query
     @Description("Retrieves a template")
-    public SurveyTemplate getTemplate(Long id) {
-        return templateService.getTemplateById(Long.toString(id));
+    public SurveyTemplate getTemplate(String uuid) {
+        return templateService.getTemplateByUUid(uuid);
     }
 
     @Query
@@ -43,18 +43,18 @@ public class HelloGraphQLResource {
         return templateService.getTemplates();
     }
 
-    @Query
-    public boolean isMultipleOptionQuestion(@Source Question question) {
-        return question instanceof MultipleOptionQuestion;
-    }
-
-    @Query
-    public MultipleOptionQuestion getMultipleOptionQuestion(@Source Question question) {
-        if (isMultipleOptionQuestion(question)) {
-            return (MultipleOptionQuestion) question;
-        }
-        return null;
-    }
+//    @Query
+//    public boolean isMultipleOptionQuestion(@Source Question question) {
+//        return question instanceof MultipleOptionQuestion;
+//    }
+//
+//    @Query
+//    public MultipleOptionQuestion getMultipleOptionQuestion(@Source Question question) {
+//        if (isMultipleOptionQuestion(question)) {
+//            return (MultipleOptionQuestion) question;
+//        }
+//        return null;
+//    }
 
 
     public void saveNewSurvey(Survey survey) {

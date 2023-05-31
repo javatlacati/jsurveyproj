@@ -20,5 +20,6 @@ import java.util.List;
 @Getter
 public class SurveyTemplate   implements Serializable {
     private Long surveyTemplateId;
+    private String uuid;
     private List<Section> sections;
 }

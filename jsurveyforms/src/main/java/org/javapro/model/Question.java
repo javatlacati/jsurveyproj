@@ -1,10 +1,12 @@
 package org.javapro.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.javapro.deserializer.QuestionDeserializer;
 import org.javapro.entities.QuestionType;
 
 import javax.persistence.Inheritance;
@@ -16,29 +18,8 @@ import javax.persistence.InheritanceType;
 @SuperBuilder
 @NoArgsConstructor
 @ToString
-//@JsonDeserialize(using = QuestionDeserializer.class)
-//@DiscriminatorColumn(name = "QUESTION_TYPE")
-//@JsonTypeInfo(
-//        use = JsonTypeInfo.Id.DEDUCTION
-//        use = JsonTypeInfo.Id.NAME
-//        ,include = JsonTypeInfo.As.PROPERTY
-//        ,property = "type"
-//        , defaultImpl = OpenQuestion.class
-//)
-//@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include= JsonTypeInfo.As.PROPERTY, property="type", defaultImpl = OpenQuestion.class)
-//@JsonIgnoreProperties(ignoreUnknown = true)
-//@JsonSubTypes({
-//        @JsonSubTypes.Type(value = DateQuestion.class
-//                , name = "DateQuestion"
-//        ),
-//        @JsonSubTypes.Type(value = MultipleOptionQuestion.class
-//                , name = "MultipleOptionQuestion"
-//        ),
-//        @JsonSubTypes.Type(value = OpenQuestion.class
-//                , name = "OpenQuestion"
-//        )
-//})
-public abstract class Question {
+@JsonDeserialize(using = QuestionDeserializer.class)
+public class Question implements ATypeOfQuestion {
     Long questionId;
     String statement;
     boolean required;
