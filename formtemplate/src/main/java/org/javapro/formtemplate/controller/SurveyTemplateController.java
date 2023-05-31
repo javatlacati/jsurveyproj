@@ -40,6 +40,12 @@ public class SurveyTemplateController {
         return surveyTemplateService.findById(id);
     }
 
+    @GetMapping("/template/uuid/{uuid}")
+    @ResponseBody
+    public Optional<SurveyTemplate> findByUuid(@PathVariable String uuid) {
+        return surveyTemplateService.findByUuid(uuid);
+    }
+
     @DeleteMapping("/template/{id}")
     @ResponseBody
     public void deleteById(@PathVariable Long id) {
