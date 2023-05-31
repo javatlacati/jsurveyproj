@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -42,7 +43,7 @@ public class DataLoader implements CommandLineRunner {
         final List<Question> afiliationQuestions = List.of(afiliationOptionQuestion);
         Section afiliationInfoSection = sectionRepository.save(Section.builder().name("Afiliacion").questions(afiliationQuestions).build());
         final List<Section> sections = Arrays.asList(generalInfoSection, afiliationInfoSection);
-        SurveyTemplate surveyTemplate1 = surveyTemplateRepository.save(SurveyTemplate.builder().sections(sections).build());
+        SurveyTemplate surveyTemplate1 = surveyTemplateRepository.save(SurveyTemplate.builder().uuid(UUID.randomUUID().toString()).sections(sections).build());
         System.out.println("loaded template:" + surveyTemplate1);
     }
 

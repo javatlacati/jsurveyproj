@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -49,6 +50,7 @@ public class SurveyTemplateController {
     @ResponseBody
     public SurveyTemplate createTemplate(@RequestBody SurveyTemplate surveyTemplate) {
         System.out.println("creating template:" + surveyTemplate);
+        surveyTemplate.setUuid(UUID.randomUUID().toString());
         List<Section> sections = surveyTemplate.getSections();
         if (sections != null && !sections.isEmpty()) {
             for (int i = 0; i < sections.size(); i++) {
