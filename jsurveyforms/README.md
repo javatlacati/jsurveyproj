@@ -76,3 +76,132 @@ Invoke different services through REST with JSON
 Start coding with this Hello GraphQL Query
 
 [Related guide section...](https://quarkus.io/guides/smallrye-graphql)
+
+
+## Algunas consultas utiles
+
+retrieve all uuids from all templates:
+```graphql
+{
+  templates {
+    uuid
+  }
+}
+```
+Retrieve the template details from a template using uuid
+
+```graphql
+{
+  template(uuid: "772df4ec-fa29-4c75-a6b2-07e8b1b9a877") {
+    surveyTemplateId
+    uuid
+    sections {
+      sectionId
+      name
+      questions {
+        ... on MultipleOptionQuestion {
+          questionId
+          statement
+          type
+          required
+          answerOptions
+        }
+        ... on Question {
+          questionId
+          statement
+          type
+          required
+        }
+      }
+    }
+  }
+}
+```
+
+Add a new answered survey
+
+```graphql
+mutation {
+    saveNewSurvey(
+        survey: {
+          surveyId: null,
+          templateId: 1,
+          answers: [
+            {
+              id: null,
+              questionId: 1,
+              questionType: OPEN
+              answerData:{
+                answer:"Paco"
+                theDate: null
+                answerIdx:null
+              }
+            },
+            {
+              id:null
+              questionId:2
+              questionType:DATE
+              answerData:{
+              theDate:"06/06/2023"
+                answer:null
+                answerIdx: null
+              }
+            },
+            {
+              id:null
+              questionId:3
+              questionType: MULTIPLE_OPTION
+              answerData:{
+                answerIdx:0
+                answer:null
+                theDate:null
+              }
+            },
+            {
+              id:null
+              questionId:4
+              questionType:MULTIPLE_OPTION
+              answerData:{
+                answerIdx:4
+                answer:null
+                theDate:null
+              }
+            }
+          ]
+        }
+    )  {
+      surveyId
+      templateId
+      answers {
+        id
+        questionId
+        questionType
+        answerData {
+          answer
+          answerIdx
+          theDate
+        }
+      }
+    }
+}
+```
+retrieve all answered surveys
+
+```graphql
+{
+  surveys {
+    surveyId
+    templateId
+    answers {
+      id
+      questionId
+      questionType
+      answerData {
+        answerIdx
+        answer
+        theDate
+      }
+    }
+  }
+}
+```

@@ -3,13 +3,17 @@ package org.javapro;
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
+import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Query;
 import org.eclipse.microprofile.graphql.Source;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.javapro.entities.Answer;
 import org.javapro.entities.Survey;
 import org.javapro.model.MultipleOptionQuestion;
 import org.javapro.model.Question;
 import org.javapro.model.SurveyTemplate;
+import org.javapro.repository.AnswerRepository;
+import org.javapro.repository.SurveyRepository;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -21,14 +25,14 @@ public class HelloGraphQLResource {
     @RestClient
     TemplateService templateService;
 
+    @Inject
+    SurveyRepository surveyRepository;
+
+    @Inject
+    AnswerRepository answerRepository;
+
     @PostConstruct
     void initialize() {
-    }
-
-    @Query
-    @Description("Say hello")
-    public String sayHello(@DefaultValue("World") String name) {
-        return "Hello " + name;
     }
 
     @Query
@@ -43,21 +47,25 @@ public class HelloGraphQLResource {
         return templateService.getTemplates();
     }
 
-//    @Query
-//    public boolean isMultipleOptionQuestion(@Source Question question) {
-//        return question instanceof MultipleOptionQuestion;
-//    }
-//
-//    @Query
-//    public MultipleOptionQuestion getMultipleOptionQuestion(@Source Question question) {
-//        if (isMultipleOptionQuestion(question)) {
-//            return (MultipleOptionQuestion) question;
-//        }
-//        return null;
-//    }
+    @Query
+    @Description("retrieves al answered surveys")
+    public List<Survey> getSurveys() {
+        return surveyRepository.findAll();
+    }
 
 
-    public void saveNewSurvey(Survey survey) {
-
+    @Mutation
+    @Description("saves survey responses")
+    public Survey saveNewSurvey(Survey survey) {
+        List<Answer> answers = survey.getAnswers();
+        if (answers != null && !answers.isEmpty()) {
+            for (int i = 0; i < answers.size(); i++) {
+                var answer = answers.get(i);
+                if (answer.getId() == null) {
+                    answers.set(i, answerRepository.save(answer));
+                }
+            }
+        }
+        return this.surveyRepository.save(survey);
     }
 }
