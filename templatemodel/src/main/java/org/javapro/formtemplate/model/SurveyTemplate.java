@@ -28,6 +28,7 @@ public class SurveyTemplate   implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long surveyTemplateId;
+    private String uuid;
     @OneToMany
     private List<Section> sections;
 }

@@ -9,8 +9,8 @@ import lombok.experimental.SuperBuilder;
 import org.javapro.deserializer.QuestionDeserializer;
 import org.javapro.entities.QuestionType;
 
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
 @Inheritance(strategy = InheritanceType.JOINED)
 @Setter

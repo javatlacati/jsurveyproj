@@ -11,9 +11,8 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>templatemodel</module>
         <module>formtemplate</module>
         <module>jsurveyforms</module>
-        <module>surveyforms</module>
-        <module>surveymodel</module>
     </modules>
 </project>

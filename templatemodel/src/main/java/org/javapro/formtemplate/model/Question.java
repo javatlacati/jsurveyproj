@@ -12,12 +12,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.validation.constraints.NotNull;
+import org.javapro.formtemplate.deserializer.QuestionDeserializer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.javapro.formtemplate.deserializer.QuestionDeserializer;
 
 
 @Entity

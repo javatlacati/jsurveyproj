@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.json.bind.annotation.JsonbDateFormat;
-import javax.persistence.Embeddable;
+import jakarta.json.bind.annotation.JsonbDateFormat;
+import jakarta.persistence.Embeddable;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter

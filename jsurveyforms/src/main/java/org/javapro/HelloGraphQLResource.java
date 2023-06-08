@@ -1,22 +1,18 @@
 package org.javapro;
 
-import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Query;
-import org.eclipse.microprofile.graphql.Source;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.javapro.entities.Answer;
 import org.javapro.entities.Survey;
-import org.javapro.model.MultipleOptionQuestion;
-import org.javapro.model.Question;
 import org.javapro.model.SurveyTemplate;
 import org.javapro.repository.AnswerRepository;
 import org.javapro.repository.SurveyRepository;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 import java.util.List;
 
 @GraphQLApi
