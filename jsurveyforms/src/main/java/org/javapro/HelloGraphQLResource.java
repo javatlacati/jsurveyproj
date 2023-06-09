@@ -1,5 +1,7 @@
 package org.javapro;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
@@ -11,8 +13,6 @@ import org.javapro.model.SurveyTemplate;
 import org.javapro.repository.AnswerRepository;
 import org.javapro.repository.SurveyRepository;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.inject.Inject;
 import java.util.List;
 
 @GraphQLApi

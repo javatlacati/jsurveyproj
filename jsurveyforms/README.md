@@ -92,7 +92,7 @@ Retrieve the template details from a template using uuid
 
 ```graphql
 {
-  template(uuid: "772df4ec-fa29-4c75-a6b2-07e8b1b9a877") {
+  template(uuid: $uuid) {
     surveyTemplateId
     uuid
     sections {
