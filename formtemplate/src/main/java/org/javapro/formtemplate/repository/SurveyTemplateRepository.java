@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface SurveyTemplateRepository  extends JpaRepository<SurveyTemplate, Long> {
-    Optional<SurveyTemplate> findByUuid(String uuid);
+public interface SurveyTemplateRepository extends JpaRepository<SurveyTemplate, Long> {
+  Optional<SurveyTemplate> findByUuid(String uuid);
 }

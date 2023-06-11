@@ -9,14 +9,17 @@ import java.util.Set;
 
 @Component
 public class QuestionUpdateStrategyFactory {
-    private Map<QuestionType, QuestionUpdateStrategy> strategies;
+  private Map<QuestionType, QuestionUpdateStrategy> strategies;
 
-    public QuestionUpdateStrategyFactory(Set<QuestionUpdateStrategy> updateStrategySet) {
-        strategies = new HashMap<>();
-        updateStrategySet.forEach(questionUpdateStrategy -> strategies.put(questionUpdateStrategy.getStrategyName().getType(), questionUpdateStrategy));
-    }
+  public QuestionUpdateStrategyFactory(Set<QuestionUpdateStrategy> updateStrategySet) {
+    strategies = new HashMap<>();
+    updateStrategySet.forEach(
+        questionUpdateStrategy ->
+            strategies.put(
+                questionUpdateStrategy.getStrategyName().getType(), questionUpdateStrategy));
+  }
 
-    public QuestionUpdateStrategy findByType(QuestionType type) {
-        return strategies.get(type);
-    }
+  public QuestionUpdateStrategy findByType(QuestionType type) {
+    return strategies.get(type);
+  }
 }

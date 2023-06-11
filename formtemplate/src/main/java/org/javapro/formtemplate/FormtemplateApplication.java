@@ -6,8 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FormtemplateApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(FormtemplateApplication.class, args);
-    }
-
+  /**
+   * Application entry point
+   *
+   * @param args command line arguments
+   */
+  public static void main(String[] args) {
+    SpringApplication.run(FormtemplateApplication.class, args);
+  }
 }
