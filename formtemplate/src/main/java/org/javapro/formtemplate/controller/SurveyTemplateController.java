@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "${app.frontend.plantillas}")
+@CrossOrigin(origins = {"${app.frontend.plantillas}", "${app.microservice.encuesta}"})
 public class SurveyTemplateController {
   private final SurveyTemplateService surveyTemplateService;
 
