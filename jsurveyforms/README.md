@@ -205,3 +205,11 @@ retrieve all answered surveys
   }
 }
 ```
+
+## configurar base de datos
+
+    docker pull mcr.microsoft.com/mssql/server
+
+
+
+
